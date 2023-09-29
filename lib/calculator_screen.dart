@@ -53,7 +53,7 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
                   alignment: Alignment.centerRight,
                   child: Text(
                     userInput,
-                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                    style: const TextStyle(fontSize: 35, color: Colors.white),
                   ),
                 ),
                 Container(
@@ -62,7 +62,7 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
                   child: Text(
                     userOutput,
                     style: const TextStyle(
-                        fontSize: 30,
+                        fontSize: 45,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
@@ -73,67 +73,72 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
           Expanded(
             flex: 2,
             child: Container(
-              color: Colors.deepPurple[300],
-              child: GridView.builder(
-                  itemCount: buttons.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4),
-                  itemBuilder: (BuildContext context, int index) {
-                    // return Text(buttons[index]);
-                    switch (index) {
-                      case 0: //'C'
-                        return Buttons(
-                          buttontapped: () {
-                            setState(() {
-                              userInput = '';
-                              userOutput = '0';
-                            });
-                          },
-                          buttonText: buttons[index],
-                          color: Colors.green[800],
-                          textColor: Colors.white,
-                        );
-                      case 1: // 'DEL'
-                        return Buttons(
-                          buttontapped: () {
-                            setState(() {
-                              userInput =
-                                  userInput.substring(0, userInput.length - 1);
-                            });
-                          },
-                          buttonText: buttons[index],
-                          color: Colors.green[400],
-                          textColor: Colors.white,
-                        );
-                      case 19: // '='
-                        return Buttons(
-                          buttontapped: () {
-                            setState(() {
-                              equalPressed();
-                            });
-                          },
-                          buttonText: buttons[index],
-                          color: Colors.deepPurpleAccent,
-                          textColor: Colors.white,
-                        );
-                      default:
-                        return Buttons(
-                          buttontapped: () {
-                            setState(() {
-                              userInput += buttons[index];
-                            });
-                          },
-                          buttonText: buttons[index],
-                          color: isOperator(buttons[index])
-                              ? Colors.deepPurple
-                              : Colors.deepPurple[50],
-                          textColor: isOperator(buttons[index])
-                              ? Colors.white
-                              : Colors.deepPurple,
-                        );
-                    }
-                  }),
-            ),
+                color: Colors.deepPurple[300],
+                child: GridView.builder(
+                    itemCount: buttons.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4),
+                    itemBuilder: (BuildContext context, int index) {
+                      switch (index) {
+                        case 0:
+                          return Buttons(
+                            key: const Key('buttonC'),
+                            buttontapped: () {
+                              setState(() {
+                                userInput = '';
+                                userOutput = '0';
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: Colors.green[800],
+                            textColor: Colors.white,
+                          );
+                        case 1:
+                          return Buttons(
+                            key: const Key('buttonDEL'),
+                            buttontapped: () {
+                              setState(() {
+                                if (userInput.isNotEmpty) {
+                                  userInput = userInput.substring(
+                                      0, userInput.length - 1);
+                                }
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: Colors.green[400],
+                            textColor: Colors.white,
+                          );
+                        case 19:
+                          return Buttons(
+                            key: const Key('buttonEquals'),
+                            buttontapped: () {
+                              setState(() {
+                                equalPressed();
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: Colors.deepPurpleAccent,
+                            textColor: Colors.white,
+                          );
+                        default:
+                          return Buttons(
+                            key: Key('button${buttons[index]}'),
+                            buttontapped: () {
+                              setState(() {
+                                userInput += buttons[index];
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: isOperator(buttons[index])
+                                ? Colors.deepPurple
+                                : Colors.deepPurple[50],
+                            textColor: isOperator(buttons[index])
+                                ? Colors.white
+                                : Colors.deepPurple,
+                          );
+                      }
+                    })),
           )
         ],
       ),
