@@ -15,9 +15,9 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
   // Array of button
   final List<String> buttons = [
     'C',
-    'DEL',
     '%',
     '/',
+    'DEL',
     '7',
     '9',
     '8',
@@ -41,15 +41,15 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
       // appBar: AppBar(
       //   title: const Text("Calculactor"),
       // ),
-      backgroundColor: Colors.deepPurple[100],
+      backgroundColor: const Color(0xFF222434),
       body: Column(
         children: <Widget>[
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(5), // Reduced padding
                   alignment: Alignment.centerRight,
                   child: Text(
                     userInput,
@@ -57,7 +57,7 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(5), // Reduced padding
                   alignment: Alignment.centerRight,
                   child: Text(
                     userOutput,
@@ -66,14 +66,21 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
-                )
+                ),
               ],
             ),
           ),
           Expanded(
             flex: 2,
             child: Container(
-                color: Colors.deepPurple[300],
+                decoration: const BoxDecoration(
+                  // color: Color(0xFF367fa9),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25), // Add border radius top left
+                    topRight:
+                        Radius.circular(25), // Add border radius top right
+                  ),
+                ),
                 child: GridView.builder(
                     itemCount: buttons.length,
                     gridDelegate:
@@ -91,10 +98,11 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
                               });
                             },
                             buttonText: buttons[index],
-                            color: Colors.green[800],
+                            color: const Color(0xFF33344b),
                             textColor: Colors.white,
+                            hasTopLeftBorderRadius: true,
                           );
-                        case 1:
+                        case 3:
                           return Buttons(
                             key: const Key('buttonDEL'),
                             buttontapped: () {
@@ -106,8 +114,9 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
                               });
                             },
                             buttonText: buttons[index],
-                            color: Colors.green[400],
-                            textColor: Colors.white,
+                            color: const Color(0xFF33344b),
+                            textColor: const Color(0xFFf9b900),
+                            hasTopRightBorderRadius: true,
                           );
                         case 19:
                           return Buttons(
@@ -118,7 +127,7 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
                               });
                             },
                             buttonText: buttons[index],
-                            color: Colors.deepPurpleAccent,
+                            color: const Color(0xFFf9b900),
                             textColor: Colors.white,
                           );
                         default:
@@ -131,11 +140,11 @@ class _CalculactorScreenState extends State<CalculactorScreen> {
                             },
                             buttonText: buttons[index],
                             color: isOperator(buttons[index])
-                                ? Colors.deepPurple
-                                : Colors.deepPurple[50],
+                                ? const Color(0xFF33344b)
+                                : const Color(0xFF2c2e42),
                             textColor: isOperator(buttons[index])
-                                ? Colors.white
-                                : Colors.deepPurple,
+                                ? const Color(0xFFf9b900)
+                                : Colors.white,
                           );
                       }
                     })),

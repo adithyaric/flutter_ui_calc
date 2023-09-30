@@ -7,24 +7,33 @@ class Buttons extends StatelessWidget {
   final textColor;
   final buttonText;
   final buttontapped;
+  final bool hasTopLeftBorderRadius; // Add this line
+  final bool hasTopRightBorderRadius; // Add this line
 
   const Buttons(
       {super.key,
       this.color,
       this.textColor,
       this.buttonText,
-      this.buttontapped});
-
-  // const Buttons({Key? key}) : super(key: key);
+      this.buttontapped,
+      this.hasTopLeftBorderRadius = false,
+      this.hasTopRightBorderRadius = false}); // Modify this line
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: buttontapped,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(1.0),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.only(
+            topLeft: hasTopLeftBorderRadius
+                ? const Radius.circular(25)
+                : Radius.zero,
+            topRight: hasTopRightBorderRadius
+                ? const Radius.circular(25)
+                : Radius.zero,
+          ),
           child: Container(
             color: color,
             child: Center(
